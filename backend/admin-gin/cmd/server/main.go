@@ -1,27 +1,20 @@
-//	@title			Mall API
-//	@version		1.0
-//	@description	Mall API 服务接口文档
-//	@termsOfService	http://swagger.io/terms/
-
-//	@contact.name	API Support
-//	@contact.url	http://www.swagger.io/support
-//	@contact.email	support@swagger.io
-
-//	@license.name	Apache 2.0
-//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
-
-//	@host		localhost:8081
-//	@BasePath	/
-
-//	@securityDefinitions.apikey	BearerAuth
-//	@in							header
-//	@name						Authorization
-//	@description				输入格式: Bearer <token>
-
-//	@securityDefinitions.apikey	CookieAuth
-//	@in							header
-//	@name						Cookie
-//	@description				浏览器自动处理。手动调试请填写：refresh_token=xxxx
+// @OpenAPI 3.2.0
+// @Title Pet Store API
+// @Version 1.0.0
+// @Summary A sample pet store server
+// @Description This is a Go implementation of the OpenAPI 3.2 Pet Store.
+// @License.Name Apache 2.0
+// @License.Identifier Apache-2.0
+//
+// @Server https://api.petstore.com/v1 name=prod Production
+// @Server http://localhost:8080/v1 name=dev Local Dev
+//
+// @Tag.Name    pet
+// @Tag.Summary 宠物管理
+// @Tag.Kind    nav
+//
+// @SecurityScheme ApiKeyAuth apiKey header X-API-KEY
+// @Security ApiKeyAuth
 
 package main
 

@@ -18,15 +18,15 @@ func newHandler(se service, cm *cookie.CookieManager) *handler {
 	return &handler{se: se, cm: cm}
 }
 
-// @Summary		用户登录
-// @Description	用户名/密码登录
-// @ID				login
-// @Tags			Auth
-// @Accept			json
-// @Produce		json
-// @Param			data	body		loginReq						true	"登录参数"
-// @Success		200		{object}	pkghttp.HttpResponse[loginRes]	"登录成功"
-// @Router			/admin/auth/login [post]
+// Login 	登录
+// @Summary 登录
+// @Description 用户名/密码登录
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param login body loginReq true "登录信息"
+// @Success 200 {object} pkghttp.HttpResponse[loginRes] "成功"
+// @Router /admin/auth/login [post]
 func (h *handler) login(c *gin.Context) {
 
 	// 1.读取接口传参
@@ -49,15 +49,6 @@ func (h *handler) login(c *gin.Context) {
 	pkghttp.OK(c, res)
 }
 
-// @Summary		用户注册
-// @Description	用户名/密码进行注册
-// @ID				register
-// @Tags			Auth
-// @Accept			json
-// @Produce		json
-// @Param			data	body		registerReq					true	"注册参数"
-// @Success		200		{object}	pkghttp.HttpResponse[Empty]	"注册成功"
-// @Router			/admin/auth/register [post]
 func (h *handler) register(c *gin.Context) {
 
 	// 1. 读取接口传参
@@ -78,16 +69,6 @@ func (h *handler) register(c *gin.Context) {
 
 }
 
-// @Summary		用户注销
-// @Description	用户注销,同时移除刷新令牌
-// @Security		BearerAuth
-// @ID				logout
-// @Tags			Auth
-// @Accept			json
-// @Produce		json
-// @Param			Cookie	header		string						true	"格式: refresh_token=xxx"
-// @Success		200		{object}	pkghttp.HttpResponse[Empty]	"注销成功"
-// @Router			/admin/auth/session/logout [post]
 func (h *handler) logout(c *gin.Context) {
 
 	// 1.参数 refresh_token, 从 cookie 中取值
@@ -112,16 +93,6 @@ func (h *handler) logout(c *gin.Context) {
 
 }
 
-// @Summary		刷新令牌
-// @Description	用于短期令牌 Access_Token 续期
-// @ID				refreshToken
-// @Security		CookieAuth
-// @Tags			Auth
-// @Accept			json
-// @Produce		json
-// @Param			Cookie	header		string							true	"格式: refresh_token=xxx"
-// @Success		200		{object}	pkghttp.HttpResponse[loginRes]	"刷新成功"
-// @Router			/admin/auth/session/refresh [post]
 func (h *handler) refresh(c *gin.Context) {
 
 	// 1.参数 refresh_token, 从 cookie 中取值

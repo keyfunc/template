@@ -19,7 +19,7 @@ run:
 
 # 生成 Open API 文档
 # 注意：需要临时添加 GOBIN 到 PATH，以便找到 swag 命令
-swag:
+openapi:
 	@echo "生成 API 文档..."
 	@PATH=$(GOBIN):$$PATH go run $(OPENAPI)
 

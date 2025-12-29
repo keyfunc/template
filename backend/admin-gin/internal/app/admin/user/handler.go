@@ -28,17 +28,6 @@ func mapServiceErrorCode(err error) int {
 	return http.StatusInternalServerError
 }
 
-// @Summary		获取用户列表
-// @Description	支持分页以及条件查询
-// @ID				listUser
-// @Security		BearerAuth
-// @Tags			User
-// @Accept			json
-// @Produce		json
-// @Param			params	query		listReq											true	"查询参数"
-// @Success		200		{object}	pkghttp.HttpResponse[pkghttp.PageRes[listRes]]	"查询成功"
-// @Router			/admin/user [get]
-// @Router			/admin/user [get]
 func (h *Handler) List(c *gin.Context) {
 	var req listReq
 	if err := c.ShouldBindQuery(&req); err != nil {
