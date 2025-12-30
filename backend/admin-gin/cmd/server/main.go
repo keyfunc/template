@@ -1,21 +1,3 @@
-// @OpenAPI 3.2.0
-// @Title Pet Store API
-// @Version 1.0.0
-// @Summary A sample pet store server
-// @Description This is a Go implementation of the OpenAPI 3.2 Pet Store.
-// @License.Name Apache 2.0
-// @License.Identifier Apache-2.0
-//
-// @Server https://api.petstore.com/v1 name=prod Production
-// @Server http://localhost:8080/v1 name=dev Local Dev
-//
-// @Tag.Name    pet
-// @Tag.Summary 宠物管理
-// @Tag.Kind    nav
-//
-// @SecurityScheme ApiKeyAuth apiKey header X-API-KEY
-// @Security ApiKeyAuth
-
 package main
 
 import (
@@ -28,6 +10,18 @@ import (
 	"mall-api/internal/boot"
 )
 
+// @OpenAPI 3.2.0
+// @Title Mall API
+// @Version 1.0
+// @Description Mall API 服务接口文档
+// @TermsOfService http://swagger.io/terms/
+// @Contact.Name API Support
+// @Contact.URL http://www.swagger.io/support
+// @Contact.Email support@swagger.io
+// @License.Name Apache 2.0
+// @License.URL http://www.apache.org/licenses/LICENSE-2.0.html
+// @SecurityScheme BearerAuth apiKey header Authorization
+// @SecurityScheme CookieAuth apiKey header Cookie
 func main() {
 
 	// 1.从环境变量获取运行模式

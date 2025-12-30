@@ -9,8 +9,8 @@ import (
 func main() {
 
 	config := goas.Config{
-		Dirs:   []string{"./cmd/server", "./internal"},
-		Output: ".docs/api",
+		Dirs:   []string{"./cmd/server", "./internal/..."},
+		Output: "api/openapi",
 	}
 
 	if err := goas.Run(config); err != nil {

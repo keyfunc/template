@@ -18,7 +18,6 @@ func newHandler(se service, cm *cookie.CookieManager) *handler {
 	return &handler{se: se, cm: cm}
 }
 
-// Login 	登录
 // @Summary 登录
 // @Description 用户名/密码登录
 // @Tags Auth
@@ -49,6 +48,14 @@ func (h *handler) login(c *gin.Context) {
 	pkghttp.OK(c, res)
 }
 
+// @Summary 注册
+// @Description 用户注册
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param register body registerReq true "注册信息"
+// @Success 200 {object} pkghttp.HttpResponse[pkghttp.Empty] "成功"
+// @Router /admin/auth/register [post]
 func (h *handler) register(c *gin.Context) {
 
 	// 1. 读取接口传参
@@ -69,6 +76,12 @@ func (h *handler) register(c *gin.Context) {
 
 }
 
+// @Summary 注销
+// @Description 用户注销
+// @Tags Auth
+// @Produce json
+// @Success 200 {object} pkghttp.HttpResponse[pkghttp.Empty] "成功"
+// @Router /admin/auth/logout [post]
 func (h *handler) logout(c *gin.Context) {
 
 	// 1.参数 refresh_token, 从 cookie 中取值
@@ -93,6 +106,12 @@ func (h *handler) logout(c *gin.Context) {
 
 }
 
+// @Summary 刷新Token
+// @Description 使用RefreshToken刷新AccessToken
+// @Tags Auth
+// @Produce json
+// @Success 200 {object} pkghttp.HttpResponse[loginRes] "成功"
+// @Router /admin/auth/refresh [post]
 func (h *handler) refresh(c *gin.Context) {
 
 	// 1.参数 refresh_token, 从 cookie 中取值
