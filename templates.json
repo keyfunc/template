@@ -1,0 +1,27 @@
+[
+  {
+    "name": "react",
+    "description": "A React template built with React 19.2, Orval, Tanstack Router, Tanstack Query, TailwindCSS v4, Axios, and Zustand.",
+    "repoPath": "frontend/react"
+  },
+  {
+    "name": "go-standard",
+    "description": "An API template built with Go standard library.",
+    "repoPath": "backend/go-standard"
+  },
+  {
+    "name": "mobile-taro",
+    "description": "A mobile app template built with Taro v4, TailwindCSS, Axios, and Zustand.",
+    "repoPath": "frontend/mobile-taro"
+  },
+  {
+    "name": "admin-react",
+    "description": "A modern admin dashboard template built with React 19.2, TanStack Router, TanStack Query, shadcn/ui, TailwindCSS, and Zustand.",
+    "repoPath": "frontend/admin-react"
+  },
+  {
+    "name": "admin-gin",
+    "description": "A production-ready admin backend template built with Go, Gin, GORM, PostgreSQL, Redis, and MongoDB.",
+    "repoPath": "backend/admin-gin"
+  }
+]
