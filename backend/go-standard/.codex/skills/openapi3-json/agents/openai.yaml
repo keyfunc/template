@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenAPI 3 JSON"
+  short_description: "Generate OpenAPI 3 JSON specs from API code"
+  default_prompt: "Use $openapi3-json to generate or update the OpenAPI 3 JSON document for this project."
