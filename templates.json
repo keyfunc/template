@@ -5,10 +5,21 @@
     "repoPath": "frontend/react"
   },
   {
+    "name": "vue",
+    "description": "A Vue template built with Vue3, Pinia, Tailwind, Axios, Element Plus.",
+    "repoPath": "frontend/vue"
+  },
+   {
+    "name": "vue-h5",
+    "description": "A Vue H5 template built with Vue3, Pinia, Tailwind, Axios, Vant.",
+    "repoPath": "frontend/vue-h5"
+  },
+  {
     "name": "go-standard",
     "description": "An API template built with Go standard library.",
     "repoPath": "backend/go-standard"
   },
+ 
   {
     "name": "mobile-taro",
     "description": "A mobile app template built with Taro v4, TailwindCSS, Axios, and Zustand.",
