@@ -1,18 +1,13 @@
 [
   {
     "name": "react",
-    "description": "A React template built with React 19.2, Orval, Tanstack Router, Tanstack Query, TailwindCSS v4, Axios, and Zustand.",
+    "description": "A React template built with React 19.2, Orval, Tanstack Router, Tanstack Query, Tailwind, Axios, and Zustand.",
     "repoPath": "frontend/react"
   },
   {
     "name": "vue",
-    "description": "A Vue template built with Vue3, Pinia, Tailwind, Axios, Element Plus.",
+    "description": "A Vue template built with Vue3, Vue Router, Pinia, Tailwind, Axios and cleaTanstack Query.",
     "repoPath": "frontend/vue"
-  },
-   {
-    "name": "vue-h5",
-    "description": "A Vue H5 template built with Vue3, Pinia, Tailwind, Axios, Vant.",
-    "repoPath": "frontend/vue-h5"
   },
   {
     "name": "go-standard",
