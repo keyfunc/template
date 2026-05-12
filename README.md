@@ -4,7 +4,7 @@
 
 ## 推荐创建方式
 
-推荐使用 `create-clear` npm 包创建 template 项目，并按命令行提示选择需要的模板。
+推荐使用 [`create-clear`](https://www.npmjs.com/package/create-clear) npm 包创建 template 项目，并按命令行提示选择需要的模板。
 
 ## 项目列表
 
