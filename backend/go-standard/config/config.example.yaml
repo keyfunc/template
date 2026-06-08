@@ -1,16 +1,24 @@
 # 服务配置
 server:
-  addr: 127.0.0.1
   port: 8080
+
 # 日志配置
 logger:
   level: debug
   format: text
+
 # 数据库配置
 db:
-  host: 127.0.0.1
+  host: postgres
   port: 5432
   user: user
   pwd: pwd
   name: name
   sslmode: disable
+
+# redis 配置
+redis:
+  addr: redis
+  password: ""
+  db: 0
+  

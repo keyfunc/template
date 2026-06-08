@@ -7,6 +7,7 @@ import (
 	"mall/internal/infra/db"
 	"mall/internal/infra/logger"
 	"net/http"
+	"os"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -19,8 +20,11 @@ type App struct {
 }
 
 func New() error {
+	// 前提：传入的配置文件路径，读取配置
+	configPath := os.Getenv("CONFIG_PATH")
+
 	// 1. 读取配置
-	cfg, err := config.Load("config/config.yaml")
+	cfg, err := config.Load(configPath)
 	if err != nil {
 		return err
 	}

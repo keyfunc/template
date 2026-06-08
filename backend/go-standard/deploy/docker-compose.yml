@@ -1,0 +1,44 @@
+services:
+  nginx: # nginx 容器
+    image: nginx:1.27-alpine
+    container_name: server-nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - server_api
+  
+  redis: # redis 容器
+    image: redis:8.6.4-alpine
+    container_name: server_redis
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+  postgres: # postgres 容器
+    image: postgres:15.17-alpine3.22
+    container_name: server_postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  server_api: # api 容器(拉取阿里云镜像仓库镜像)
+    image: registry.cn-hangzhou.aliyuncs.com/keyfu/storely:latest
+    container_name: server-api
+    restart: always
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro # 宿主机 配置文件 => 容器 /app/，以只读的方式挂载
+    environment:
+      APP_CONFIG_PATH: /app/config.yaml # 注入挂载的配置文件到环境变量
+    depends_on:
+      - postgres
+      - redis
+  
+volumes:
+  pg_data:
+  redis_data:

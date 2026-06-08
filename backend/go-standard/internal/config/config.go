@@ -7,8 +7,6 @@ type Config struct {
 }
 
 type ServerConfig struct {
-	// 服务器地址
-	Addr string `yaml:"addr"`
 	// 服务端口号
 	Port int `yaml:"port"`
 }
