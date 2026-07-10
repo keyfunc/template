@@ -26,9 +26,9 @@
     "repoPath": "frontend/admin-react"
   },
   {
-  "name": "electron-react",
-  "description": "A modern cross-platform desktop application template built with Electron 43, React 19.2, TypeScript, Vite, TanStack Router, TanStack Query, TailwindCSS, and Zustand.",
-  "repoPath": "frontend/electron-react"
+    "name": "electron-react",
+    "description": "A modern cross-platform desktop application template built with Electron 43, React 19.2, TypeScript, Vite, TanStack Router, TanStack Query, TailwindCSS, and Zustand.",
+    "repoPath": "frontend/electron-react"
   },
   {
     "name": "admin-gin",
