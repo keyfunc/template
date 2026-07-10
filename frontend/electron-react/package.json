@@ -1,0 +1,71 @@
+{
+	"name": "electron-react",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"main": "script/main.ts",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"preview": "vite preview",
+		"prepare": "husky",
+		"commit": "git add . && git-cz",
+
+		"dev:app": "electron .",
+		"build:app": "electron-builder -wml",
+		"postinstall": "electron-builder install-app-deps"
+	},
+	"dependencies": {
+		"@tanstack/react-query": "^5.101.2",
+		"@tanstack/react-query-devtools": "^5.101.2",
+		"@tanstack/react-router": "^1.170.17",
+		"@tanstack/react-router-devtools": "^1.167.0",
+		"axios": "^1.18.1",
+		"dayjs": "^1.11.21",
+		"react": "^19.2.7",
+		"react-dom": "^19.2.7",
+		"zustand": "^5.0.14"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.29.7",
+		"@biomejs/biome": "2.5.3",
+		"@commitlint/cli": "^21.2.1",
+		"@commitlint/config-conventional": "^21.2.0",
+		"@rolldown/plugin-babel": "^0.2.3",
+		"@tailwindcss/vite": "^4.3.2",
+		"@tanstack/router-plugin": "^1.168.19",
+		"@types/babel__core": "^7.20.5",
+		"@types/node": "^24.13.2",
+		"@types/react": "^19.2.17",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^6.0.3",
+		"babel-plugin-react-compiler": "^1.0.0",
+		"commitizen": "^4.3.2",
+		"cz-git": "^1.13.1",
+		"electron": "^43.1.0",
+		"electron-builder": "^26.15.3",
+		"globals": "^17.7.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^17.0.8",
+		"tailwindcss": "^4.3.2",
+		"typescript": "~6.0.2",
+		"vite": "^8.1.1"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-git"
+		}
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx,json,jsonc,css,scss,md}": [
+			"biome check --write --no-errors-on-unmatched"
+		]
+	}
+}

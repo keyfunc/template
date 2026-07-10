@@ -1,13 +1,11 @@
 package app
 
 import (
-	"fmt"
 	"log/slog"
 	"mall/internal/config"
 	"mall/internal/infra/db"
 	"mall/internal/infra/logger"
 	"net/http"
-	"os"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -20,17 +18,14 @@ type App struct {
 }
 
 func New() error {
-	// 前提：传入的配置文件路径，读取配置
-	configPath := os.Getenv("CONFIG_PATH")
-
-	// 1. 读取配置
-	cfg, err := config.Load(configPath)
+	// 1. 从环境变量读取配置
+	cfg, err := config.Init()
 	if err != nil {
 		return err
 	}
 
 	// 2.  初始化日志
-	logger := logger.Init(cfg.Logger)
+	logger := logger.New(cfg.Logger)
 
 	// 3. 初始化数据库连接
 	db, err := db.NewPostgres(cfg.DB)
@@ -50,7 +45,7 @@ func New() error {
 	})
 
 	// 6. 端口监听
-	port := fmt.Sprintf(":%d", cfg.Server.Port)
+	port := ":" + cfg.Server.Port
 	slog.Info("服务启动成功")
 	if err := http.ListenAndServe(port, mux); err != nil {
 		return err

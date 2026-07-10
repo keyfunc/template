@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func Init(cfg config.LogConfig) *slog.Logger {
+func New(cfg config.LogConfig) *slog.Logger {
 	var level slog.Level
 
 	switch cfg.Level {
@@ -28,8 +28,10 @@ func Init(cfg config.LogConfig) *slog.Logger {
 	var handler slog.Handler
 	switch cfg.Format {
 	case "json":
+		// 生产环境建议使用 JSON 格式，方便日志收集和分析
 		handler = slog.NewJSONHandler(os.Stdout, opts)
 	default:
+		// 开发环境建议使用文本格式，便于阅读
 		handler = slog.NewTextHandler(os.Stdout, opts)
 	}
 

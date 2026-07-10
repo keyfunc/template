@@ -14,7 +14,7 @@ func NewPostgres(cfg config.DBConfig) (*pgxpool.Pool, error) {
 	ctx := context.Background()
 
 	dsn := fmt.Sprintf(
-		"postgres://%s:%s@%s:%d/%s?sslmode=%s",
+		"postgres://%s:%s@%s:%s/%s?sslmode=%s",
 		cfg.User,
 		cfg.Pwd,
 		cfg.Host,
@@ -32,6 +32,6 @@ func NewPostgres(cfg config.DBConfig) (*pgxpool.Pool, error) {
 		pool.Close()
 		return nil, err
 	}
-	slog.Debug("数据库连接成功")
+	slog.Info("数据库连接成功")
 	return pool, nil
 }

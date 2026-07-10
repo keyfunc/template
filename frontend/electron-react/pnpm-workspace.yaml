@@ -1,0 +1,7 @@
+allowBuilds:
+  electron: true
+  electron-winstaller: true
+
+overrides:
+# electron-builder 上游发布包内部的依赖声明错误，这里先定向覆盖，等上游发布修复后，移除该纠正
+  "app-builder-lib>@electron/get": "5.0.0"

@@ -6,99 +6,50 @@ on:
       - master
 
 env:
-  ALIYUN_REGISTRY: registry.cn-hangzhou.aliyuncs.com
-  ALIYUN_IMAGE: registry.cn-hangzhou.aliyuncs.com/keyfu/storely
-  SERVICE_DIR: /data/service
+  ALIYUN_REGISTRY: registry.cn-hangzhou.aliyuncs.com # 阿里云镜像仓库地址
+  ALIYUN_IMAGE: registry.cn-hangzhou.aliyuncs.com/keyfu/storely # 阿里云镜像地址
+  SERVICE_DIR: /data/service/demo # 服务器工作目录
 
 jobs:
   deploy:
-    name: Deploy to Server
+    name: Deploy
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Aliyun Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.ALIYUN_REGISTRY }}
-          username: ${{ secrets.ALIYUN_REGISTRY_USERNAME }}
-          password: ${{ secrets.ALIYUN_REGISTRY_PASSWORD }}
+      - name: Login ACR
+        run: |
+          echo "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}" | docker login "${{ env.ALIYUN_REGISTRY }}" \
+            --username "${{ secrets.ALIYUN_REGISTRY_USERNAME }}" \
+            --password-stdin
 
       - name: Build and push image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: |
-            ${{ env.ALIYUN_IMAGE }}:latest
-            ${{ env.ALIYUN_IMAGE }}:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Prepare service directory
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          # 服务器地址，可以是公网 IP 或域名
-          host: ${{ secrets.SERVER_HOST }}
-          # SSH 登录用户名，例如 ubuntu、root 或 deploy
-          username: ${{ secrets.SERVER_USER }}
-          # SSH 端口，默认通常是 22
-          port: ${{ secrets.SERVER_PORT }}
-          # SSH 私钥内容，对应服务器上该用户 authorized_keys 里的公钥
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            set -e
-
-            mkdir -p "${{ env.SERVICE_DIR }}"
-
-      - name: Copy deploy files
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          # 服务器地址，可以是公网 IP 或域名
-          host: ${{ secrets.SERVER_HOST }}
-          # SSH 登录用户名，例如 ubuntu、root 或 deploy
-          username: ${{ secrets.SERVER_USER }}
-          # SSH 端口，默认通常是 22
-          port: ${{ secrets.SERVER_PORT }}
-          # SSH 私钥内容，对应服务器上该用户 authorized_keys 里的公钥
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          source: "deploy/docker-compose.yml,deploy/nginx.conf"
-          target: ${{ env.SERVICE_DIR }}
-          strip_components: 1
-          overwrite: true
+        run: |
+          docker build -t "${{ env.ALIYUN_IMAGE }}:latest" .
+          docker push "${{ env.ALIYUN_IMAGE }}:latest"
 
       - name: Deploy by SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
-          # 服务器地址，可以是公网 IP 或域名
           host: ${{ secrets.SERVER_HOST }}
-          # SSH 登录用户名，例如 ubuntu、root 或 deploy
           username: ${{ secrets.SERVER_USER }}
-          # SSH 端口，默认通常是 22
           port: ${{ secrets.SERVER_PORT }}
-          # SSH 私钥内容，对应服务器上该用户 authorized_keys 里的公钥
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             set -e
 
             cd "${{ env.SERVICE_DIR }}"
 
-            test -f config.yaml || {
-              echo "Missing ${{ env.SERVICE_DIR }}/config.yaml"
-              exit 1
-            }
+            test -f compose.yml
+            test -f nginx.conf
+            test -f .env
 
             echo "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}" | docker login "${{ env.ALIYUN_REGISTRY }}" \
               --username "${{ secrets.ALIYUN_REGISTRY_USERNAME }}" \
               --password-stdin
 
-            docker compose pull server_api
-            docker compose up -d --remove-orphans
-
+            docker compose -f compose.yml pull server_api
+            docker compose -f compose.yml up -d --remove-orphans
             docker image prune -f

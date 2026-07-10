@@ -8,7 +8,7 @@
   "servers": [
     {
       "url": "http://106.52.180.97:8080",
-      "description": "Server inferred from config/config.yaml"
+      "description": "Server configured by environment variables"
     }
   ],
   "tags": [

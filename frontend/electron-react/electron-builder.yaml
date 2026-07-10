@@ -1,0 +1,21 @@
+appId: com.electron.react
+productName: electron-react
+
+# 构建输出目录修改，默认 dist，避免与 vite 构建输出目录重复
+directories:
+  output: release
+
+# windows 平台构建配置
+win:
+  target: nsis
+  # icon: electron/icon.icns
+
+# mac 平台构建配置
+mac:
+  target: dmg
+  # icon: electron/icon.icns
+
+# linux 平台构建配置
+linux:
+  target: AppImage
+  # icon: electron/icons

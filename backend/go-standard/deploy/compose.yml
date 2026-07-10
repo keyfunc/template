@@ -6,7 +6,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro # 宿主机 config 映射到容器内
     depends_on:
       - server_api
   
@@ -14,7 +14,9 @@ services:
     image: redis:8.6.4-alpine
     container_name: server_redis
     restart: always
-    command: redis-server --appendonly yes
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     volumes:
       - redis_data:/data
 
@@ -22,6 +24,10 @@ services:
     image: postgres:15.17-alpine3.22
     container_name: server_postgres
     restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
     volumes:
@@ -31,10 +37,20 @@ services:
     image: registry.cn-hangzhou.aliyuncs.com/keyfu/storely:latest
     container_name: server-api
     restart: always
-    volumes:
-      - ./config.yaml:/app/config.yaml:ro # 宿主机 配置文件 => 容器 /app/，以只读的方式挂载
     environment:
-      APP_CONFIG_PATH: /app/config.yaml # 注入挂载的配置文件到环境变量
+      SERVICE_NAME: ${SERVICE_NAME}
+      SERVER_PORT: ${SERVER_PORT}
+      LOGGER_LEVEL: ${LOGGER_LEVEL}
+      LOGGER_FORMAT: ${LOGGER_FORMAT}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_SSLMODE: ${DB_SSLMODE}
+      REDIS_ADDR: ${REDIS_ADDR}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_DB: ${REDIS_DB}
     depends_on:
       - postgres
       - redis
